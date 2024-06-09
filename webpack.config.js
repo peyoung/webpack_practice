@@ -38,6 +38,20 @@ module.exports = {
           // },
         ],
       },
+      {
+        test: /\.pug/,
+        use: [
+          {
+            loader: "html-loader",
+          },
+          {
+            loader: "pug-html-loader",
+            options: {
+              pretty: true,
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [
@@ -45,7 +59,13 @@ module.exports = {
       filename: "./stylesheets/main.css",
     }),
     new HtmlWebpackPlugin({
-      template: "./src/templates/index.html",
+      template: "./src/templates/index.pug",
+      filename: "index.html",
+      inject: "body", // 独自差分修正　'body'を指定してスクリプトを<body>の最後に挿入
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/templates/access.pug",
+      filename: "access.html",
       inject: "body", // 独自差分修正　'body'を指定してスクリプトを<body>の最後に挿入
     }),
     new CleanWebpackPlugin(),
